@@ -1,0 +1,27 @@
+{
+  "name": "speed-percentile",
+  "version": "0.0.1",
+  "description": "Utility to compute speed percentile from sparse histogram hash.",
+  "main": "index.js",
+  "repository": "https://github.com/mapbox/speed-percentile/",
+  "engines": {
+    "node": "6.2.1"
+  },
+  "scripts": {
+    "test": "npm run lint; tap -R spec test/basic.js",
+    "lint": "eslint ./*.js ./test/*.js"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "eslint": "^2.11.1",
+    "tap": "^5.7.2"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true
+    }
+  }
+}
