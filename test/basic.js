@@ -12,10 +12,10 @@ pss = [
   0.85
 ];
 
-types = ['ks', 'R4', 'R5'];
+types = ['km', 'R4', 'R5'];
 
 types.forEach(function (type) {
-  
+
   console.log('Testing algorithm ' + type + ':');
   hists.forEach(function (hist) {
 

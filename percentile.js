@@ -8,9 +8,9 @@ function percentile(histogram, ps, type) {
 
   var dist;
   switch (type) {
-    case 'ks':
+    case 'km':
       // Kaplan Meier freeflow
-      dist = CDF.ksCDF(histogram);
+      dist = CDF.kmCDF(histogram);
       break;
 
     case 'R4':

@@ -31,7 +31,7 @@ function R4CDF(histogram, offset) {
 
 
 // modified Kaplan Meier estimator
-function ksCDF(histogram) {
+function kmCDF(histogram) {
 
   var cs = cumsum(histogram);
   var sums = cs.sums;
@@ -54,5 +54,5 @@ function ksCDF(histogram) {
 }
 
 
-module.exports = {ksCDF: ksCDF,
+module.exports = {kmCDF: kmCDF,
                   R4CDF: R4CDF};
