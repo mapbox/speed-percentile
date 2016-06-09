@@ -22,6 +22,9 @@
     "env": {
       "node": true,
       "es6": false
+    },
+    "rules": {
+      "semi": 2
     }
   }
 }
