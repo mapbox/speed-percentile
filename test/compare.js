@@ -10,13 +10,13 @@ var size = 1e5;
 var p = 0.85;
 
 var dir = './simulate_' + size;
-var outfile = 'summary.json'
+var outfile = 'summary.json';
 
 var summary = {'p': p, 'size': size};
 var algorithms = {'km': speedPercentile,
                   'R4': speedPercentile,
                   'R5': speedPercentile,
-                  'scipy': scipyPercentile}
+                  'scipy': scipyPercentile};
 
 var promises = fs.readdirSync(dir)
 .filter(function (file) {
@@ -40,7 +40,7 @@ Promise.all(promises)
   console.log('Time Elasped: %d ms', process.hrtime(tic)[1]/1e6);
 }).catch(function (err) {
   console.err(err);
-})
+});
 
 
 function summarise(dist, data) {
