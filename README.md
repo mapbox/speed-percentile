@@ -32,8 +32,8 @@ npm install speed-percentile
 
 Algorithms:
 * `km` – non-parametric Kaplan Meier estimator with piece-wise linear interpolation
-* `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language)'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
-* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language)'s [sample quantile Type 5 ](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
+* `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
+* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5 ](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
 
 ### Outputs
