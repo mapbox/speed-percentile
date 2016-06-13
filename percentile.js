@@ -6,44 +6,48 @@ function percentile(histogram, ps, type) {
 
   if (Object.keys(histogram).length < 0) return NaN;
 
+  var dist;
   switch (type) {
-    case 'ks':
+    case 'km':
       // Kaplan Meier freeflow
-      var {cdf, n} = CDF.ksCDF(histogram);
+      dist = CDF.kmCDF(histogram);
       break;
 
     case 'R4':
       // R4 with linear estimation of lower extreme
-      var {cdf, n} = CDF.R4CDF(histogram);
+      dist = CDF.R4CDF(histogram);
       break;
 
     default:
       //R5 with linear estimation of both upper and lower extremes
-      return R5(histogram, ps);
+      dist = R5(histogram, ps);
   }
 
-  return piecewiseLinearInterpolation(cdf, ps);
+  return piecewiseLinearInterpolation(dist.cdf, ps);
 }
 
 
-function piecewiseLinearInterpolation(cdf, ps, istart=-1) {
+function piecewiseLinearInterpolation(cdf, ps, istart) {
 
   if (!Array.isArray(ps)) {
-    ps = [ps]
+    ps = [ps];
   }
 
-  ps.sort(function (a, b) { return b - a; })  // desc order
+  ps.sort(function (a, b) { return b - a; });  // desc order
 
   var speeds = Object.keys(cdf);
   var quantiles = [];
 
-  var i = istart === -1 ? speeds.length-1 : istart;
+  var i = istart === undefined ? speeds.length-1 : istart;
+
   ps.forEach(function (p) {
     while (i > 0 && cdf[speeds[i]] >= p) i--;
 
     var l = +speeds[i];
     var r = +speeds[i+1];
-    if (p <= cdf[speeds[i]]) [l,r] = [r,l];  // lower extreme
+    if (p <= cdf[speeds[i]]) {  // lower extreme
+      var tmp = r; r = l; l = tmp;
+    }
 
     quantiles.push(l + (r - l) * (p - cdf[l]) / (cdf[r] - cdf[l]));
   });
@@ -55,16 +59,18 @@ function piecewiseLinearInterpolation(cdf, ps, istart=-1) {
 
 function R5(histogram, ps) {
 
-  var {cdf, n} = CDF.R4CDF(histogram, -0.5)
+  var dist = CDF.R4CDF(histogram, -0.5);
+  var cdf = dist.cdf;
+  var n = dist.n;
 
   // add a linear projection point for upper extreme value
-  var speeds = Object.keys(cdf)
+  var speeds = Object.keys(cdf);
   var i = speeds.length-1;
   var j = speeds.length-2;
   var newspeed = 2 * speeds[i] - speeds[j];
   cdf[newspeed] = 2 * cdf[speeds[i]] - cdf[speeds[j]];
 
-  return piecewiseLinearInterpolation(cdf, ps);
+  return {cdf: cdf, n: n};
 
 }
 

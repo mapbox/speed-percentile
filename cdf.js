@@ -1,6 +1,6 @@
 'use strict';
 
-function cumsum(histogram, offset=0) {
+function __cumsum__(histogram, offset) {
   var n = 0;
   var sums = {};
   for (var speed in histogram) {  // speeds already in ascending order
@@ -12,8 +12,12 @@ function cumsum(histogram, offset=0) {
 }
 
 
-function R4CDF(histogram, offset=0) {
-  var {sums, n} = cumsum(histogram, offset);
+function R4CDF(histogram, offset) {
+  if (offset === undefined) offset = 0;
+
+  var cs = __cumsum__(histogram, offset);
+  var sums = cs.sums;
+  var n = cs.n;
 
   var cdf = {};
   for (var speed in sums) {  // speeds already in ascending order
@@ -25,9 +29,11 @@ function R4CDF(histogram, offset=0) {
 
 
 // modified Kaplan Meier estimator
-function ksCDF(histogram) {
+function kmCDF(histogram) {
 
-  var {sums, n} = cumsum(histogram);
+  var cs = __cumsum__(histogram, 0);
+  var sums = cs.sums;
+  var n = cs.n;
 
   var cdf = {};
   var j = 0;
@@ -46,5 +52,5 @@ function ksCDF(histogram) {
 }
 
 
-module.exports = {ksCDF: ksCDF,
+module.exports = {kmCDF: kmCDF,
                   R4CDF: R4CDF};
