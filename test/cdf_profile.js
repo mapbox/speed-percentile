@@ -1,18 +1,16 @@
 'use strict';
-var tic = process.hrtime();
-
 var speedPercentile = require('../percentile.js');
 var scipyPercentile = require('./scipy_quantile.js');
 var fs = require('fs');
 var path = require('path');
 
 var size = +process.argv[2];
-var p = 0.85;
+var ps = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95];
 
 var dir = './simulate_' + size;
-var outfile = 'summary.json';
+var outfile = 'profile.json';
 
-var summary = {'p': p, 'size': size};
+var summary = {'ps': ps};
 var algorithms = {'km': speedPercentile,
                   'R4': speedPercentile,
                   'R5': speedPercentile,
@@ -24,7 +22,7 @@ var promises = fs.readdirSync(dir)
 })
 .map(function (file) {
   return new Promise(function (resolve, reject) {
-    summary[file] = {'speed': {}, 'time': {}};
+    summary[file] = {'speed': {}};
 
     fs.readFile(path.join(dir, file), function (err, data) {
       if (err) reject(err);
@@ -46,21 +44,8 @@ Promise.all(promises)
 function summarise(dist, data) {
   var hist = JSON.parse(data);
 
-  // max speed
-  summary[dist].speed['max'] = +Object.keys(hist).pop();
-
-
   // percentile speed and computation time
   Object.keys(algorithms).forEach(function (flag) {
-    var r = timeprocess(algorithms[flag], [hist, p, flag]);
-    summary[dist].speed[flag] = r.result;
-    summary[dist].time[flag] = r.time;
+    summary[dist].speed[flag] = algorithms[flag](hist, ps, flag);
   });
-}
-
-function timeprocess(fn, args) {
-  var hrstart = process.hrtime();
-  var result = fn.apply(null, args);
-  var hrend = process.hrtime(hrstart);
-  return {'result': +result, 'time': hrend[1]/1e6};  //time in ms
 }
