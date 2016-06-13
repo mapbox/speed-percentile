@@ -4,7 +4,7 @@ var scipyPercentile = require('./scipy_quantile.js');
 var fs = require('fs');
 var path = require('path');
 
-var size = 1e5;
+var size = +process.argv[2];
 var ps = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95];
 
 var dir = './simulate_' + size;
