@@ -41,8 +41,7 @@ function kmCDF(histogram) {
 
   for (var speed in sums) {
     while (j <= sums[speed]) {
-      var theta = Math.random();
-      s *= ((n-j-1) / (n-j-theta));
+      s *= ((n-j-1) / (n-j-Math.random()));
       j++;
     }
     cdf[speed] = 1-s;
