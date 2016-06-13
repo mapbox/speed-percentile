@@ -12,7 +12,7 @@ var suite = new Benchmark.Suite('speed-percentile');
 algorithms.forEach(function (flag) {
   suite.add('speed-percentile#' + flag, function () {
     buffer(testData, p, flag);
-  })
+  });
 });
 
 suite.on('cycle', function (event) {
