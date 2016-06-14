@@ -17,18 +17,31 @@ var speed = percentile(histogram, 0.85, 'R4');
 ## Install
 
 ```
-npm install speed-percentile
+npm install
 ```
 
-## Use
+## Test
 
-### Inputs
+```
+npm test
+```
 
-| position | data type | description |
-|:--:|:--:|:--:|
-| 0 | associative array with integer keys | speed histogram hash `{<speed>:<count>}`|
-| 1 | number or array | one or more percentiles to compute |
-| 2 | string | algorithm flag (optional): `'km'`, `'R4'`, `'R5'` (default) |
+## Syntax
+
+```
+var percentile = require('speed-percentile');
+
+var o1 = percentile(p1, p2, p3)
+```
+
+### Description
+#### Inputs
+
+| param | data type | description |
+|:--|:--|:--|
+| p1 | associative array with integer keys | speed histogram hash `{<speed>:<count>}`|
+| p2 | number or array | one or more percentiles to compute |
+| p3 | string | algorithm flag (optional): `'km'`, `'R4'`, `'R5'` (default) |
 
 Algorithms:
 * `km` – non-parametric Kaplan Meier estimator with piece-wise linear interpolation
@@ -36,8 +49,8 @@ Algorithms:
 * `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5 ](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
 
-### Outputs
+#### Outputs
 
-| position | data type | description |
-|:--:|:--:|:--:|
-| 0 | number or array | speed(s) corresponding to input 1 |
+| output | data type | description |
+|:--|:--|:--|
+| o1 | number or array | speed(s) corresponding to p2 |
