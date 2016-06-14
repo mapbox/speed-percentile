@@ -17,7 +17,7 @@ var speed = percentile(histogram, 0.85, 'R4');
 ## Install
 
 ```
-npm install speed-percentile
+npm install
 ```
 
 ## Test
