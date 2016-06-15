@@ -47,7 +47,7 @@ __INPUTS__:
 | P3 | string | algorithm flag (optional): `'km'`, `'R4'`, `'R5'` (default) |
 
 Algorithms:
-* `km` – non-parametric Kaplan Meier estimator with piece-wise linear interpolation
+* `km` – non-parametric modified Kaplan Meier estimator with piece-wise linear interpolation
 * `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
 * `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
@@ -59,6 +59,7 @@ __OUTPUTS__:
 
 ### kmMedian
 
+Computes the 50th percentile of a speed histogram using the modified Kaplan-Meier estimator.
 `var o1 = kmMedian(P1)`
 
 __INPUTS__:
