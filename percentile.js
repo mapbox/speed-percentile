@@ -20,7 +20,7 @@ function percentile(histogram, ps, type) {
 
     default:
       //R5 with linear estimation of both upper and lower extremes
-      dist = R5(histogram, ps);
+      dist = R5(histogram);
   }
 
   return piecewiseLinearInterpolation(dist.cdf, ps);
@@ -57,7 +57,7 @@ function piecewiseLinearInterpolation(cdf, ps, istart) {
 }
 
 
-function R5(histogram, ps) {
+function R5(histogram) {
 
   var dist = CDF.R4CDF(histogram, -0.5);
   var cdf = dist.cdf;

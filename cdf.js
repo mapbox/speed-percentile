@@ -29,7 +29,8 @@ function R4CDF(histogram, offset) {
 
 
 // modified Kaplan Meier estimator
-function kmCDF(histogram) {
+function kmCDF(histogram, cutoff) {
+  if (cutoff === undefined) cutoff = 1.5;
 
   var cs = __cumsum__(histogram, 0);
   var sums = cs.sums;
@@ -45,6 +46,7 @@ function kmCDF(histogram) {
       j++;
     }
     cdf[speed] = 1-s;
+    if (cdf[speed] > cutoff) break;
   }
 
   return {cdf: cdf, n: n};
