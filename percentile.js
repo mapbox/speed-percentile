@@ -4,15 +4,15 @@ var CDF = require('./cdf.js');
 
 function percentile(histogram, ps, type) {
 
-  var speeds = Object.keys(histogram)
+  var speeds = Object.keys(histogram);
   if (speeds.length < 0) {
     return NaN;
   } else if (speeds.length === 1) {
     if (!Array.isArray(ps)) return +speeds[0];
-    
+
     var quantiles = [];
     for (var i in ps) {
-      quantiles.push(+speeds[0])
+      quantiles.push(+speeds[0]);
     }
     return quantiles;
   } else if (type === 'km' && speeds.length === 2) {
