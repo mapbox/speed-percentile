@@ -22,6 +22,7 @@ npm install speed-percentile
 
 ## Test
 
+`cd` to speed-percentile folder then run
 ```
 npm test
 ```
@@ -38,7 +39,7 @@ var o1 = percentile(p1, p2, p3)
 #### Inputs
 
 | param | data type | description |
-|--|--|--|
+|---|---|---|
 | p1 | associative array with integer keys | speed histogram hash `{<speed>:<count>}`|
 | p2 | number or array | one or more percentiles to compute |
 | p3 | string | algorithm flag (optional): `'km'`, `'R4'`, `'R5'` (default) |
