@@ -1,6 +1,6 @@
 {
   "name": "speed-percentile",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Utility to compute speed percentile from sparse histogram hash.",
   "license": "ISC",
   "main": "index.js",
