@@ -57,6 +57,8 @@ Algorithms:
 |:--|:--|:--|
 | o1 | number or array | speed(s) corresponding to P2 |
 
+<br>
+
 ### kmMedian
 
 `var o1 = kmMedian(P1)`
