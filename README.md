@@ -17,11 +17,12 @@ var speed = percentile(histogram, 0.85, 'R4');
 ## Install
 
 ```
-npm install
+npm install speed-percentile
 ```
 
 ## Test
 
+`cd` to speed-percentile folder then run
 ```
 npm test
 ```
@@ -38,7 +39,7 @@ var o1 = percentile(p1, p2, p3)
 #### Inputs
 
 | param | data type | description |
-|:--|:--|:--|
+|---|---|---|
 | p1 | associative array with integer keys | speed histogram hash `{<speed>:<count>}`|
 | p2 | number or array | one or more percentiles to compute |
 | p3 | string | algorithm flag (optional): `'km'`, `'R4'`, `'R5'` (default) |
@@ -46,7 +47,7 @@ var o1 = percentile(p1, p2, p3)
 Algorithms:
 * `km` – non-parametric Kaplan Meier estimator with piece-wise linear interpolation
 * `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
-* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5 ](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
+* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
 
 #### Outputs

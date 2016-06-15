@@ -1,5 +1,6 @@
 var tap = require('tap');
 var speedPercentile = require('../percentile.js');
+var kmMedian = require('../km_median.js');
 
 var hists = [
   {'35':1, '36':1, '37':4, '38':2, '40':1, '42':1, '43':1},
@@ -14,11 +15,15 @@ pss = [
 
 types = ['km', 'R4', 'R5'];
 
-types.forEach(function (type) {
 
-  console.log('Testing algorithm ' + type + ':');
-  hists.forEach(function (hist) {
+hists.forEach(function (hist) {
+  // check km median
+  console.log('Testing km median:');
+  tap.type(kmMedian(hist), 'number', 'data type');
 
+  // check percentiles
+  types.forEach(function (type) {
+    console.log('Testing algorithm ' + type + ':');
     pss.forEach(function (ps) {
       qs = speedPercentile(hist, ps, type);
       if (typeof ps === 'number') {
