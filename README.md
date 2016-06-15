@@ -34,11 +34,11 @@ npm test
 
 ### percentile
 
-Computes the *p*-th precentile speed from a sparse hash speed histogram.
-
 `var o1 = ps.percentile(P1, P2, P3)`
 
-__INPUTS__:
+Computes the *p*-th precentile speed from a sparse hash speed histogram.
+
+***INPUTS***
 
 | param | data type | description |
 |---|---|---|
@@ -51,7 +51,7 @@ Algorithms:
 * `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
 * `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
-__OUTPUTS__:
+***OUTPUTS***
 
 | output | data type | description |
 |:--|:--|:--|
@@ -59,17 +59,18 @@ __OUTPUTS__:
 
 ### kmMedian
 
-Computes the 50th percentile of a speed histogram using the modified Kaplan-Meier estimator.
 `var o1 = kmMedian(P1)`
 
-__INPUTS__:
+Computes the 50th percentile of a speed histogram using the modified Kaplan-Meier estimator.
+
+***INPUTS***
 
 | param | data type | description |
 |---|---|---|
 | P1 | associative array with integer keys | speed histogram hash `{<speed>:<count>}`|
 
 
-__OUTPUTS__:
+***OUTPUTS***
 
 | output | data type | description |
 |:--|:--|:--|
