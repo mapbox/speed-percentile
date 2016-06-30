@@ -34,7 +34,7 @@ npm test
 
 ### percentile
 
-**`var o1 = ps.percentile(P1, P2, P3)`**
+**`var o1 = sp.percentile(P1, P2, P3)`**
 
 Computes the *p*-th precentile speed from a sparse hash speed histogram.
 
@@ -62,7 +62,7 @@ __Outputs:__
 
 ### kmMedian
 
-**`var o1 = ps.kmMedian(P1)`**
+**`var o1 = sp.kmMedian(P1)`**
 
 Computes the 50th percentile of a speed histogram using the modified Kaplan-Meier estimator.
 
