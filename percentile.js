@@ -4,7 +4,22 @@ var CDF = require('./cdf.js');
 
 function percentile(histogram, ps, type) {
 
-  if (Object.keys(histogram).length < 0) return NaN;
+  var speeds = Object.keys(histogram);
+  if (speeds.length < 0) {
+    return NaN;
+  } else if (speeds.length === 1) {
+    if (!Array.isArray(ps)) return +speeds[0];
+
+    var quantiles = [];
+    for (var i in ps) {
+      quantiles.push(+speeds[0]);
+    }
+    return quantiles;
+  } else if (type === 'km' && speeds.length === 2) {
+    // km breaks down; default to R5
+    type = 'R5';
+  }
+
 
   var dist;
   switch (type) {
@@ -35,8 +50,8 @@ function piecewiseLinearInterpolation(cdf, ps, istart) {
 
   ps.sort(function (a, b) { return b - a; });  // desc order
 
-  var speeds = Object.keys(cdf);
   var quantiles = [];
+  var speeds = Object.keys(cdf);
 
   var i = istart === undefined ? speeds.length-1 : istart;
 
