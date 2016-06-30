@@ -62,7 +62,7 @@ __Outputs:__
 
 ### kmMedian
 
-**`var o1 = kmMedian(P1)`**
+**`var o1 = ps.kmMedian(P1)`**
 
 Computes the 50th percentile of a speed histogram using the modified Kaplan-Meier estimator.
 
