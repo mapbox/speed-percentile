@@ -56,7 +56,7 @@ __Outputs:__
 
 | output | data type | description |
 |:--|:--|:--|
-| o1 | number or array | speed(s) corresponding to P2 |
+| o1 | number or array | speed(s) corresponding to P2 sorted in descending order |
 
 <br>
 
