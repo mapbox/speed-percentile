@@ -1,34 +1,37 @@
 'use strict';
 var tic = process.hrtime();
 
-var speedPercentile = require('../percentile.js');
-var scipyPercentile = require('./scipy_quantile.js');
+var percentile = require('../percentile');
+var scipyPercentile = require('./scipy_quantile');
 var fs = require('fs');
 var path = require('path');
 
 var size = +process.argv[2];
-var p = 0.85;
 
-var dir = './simulate_' + size;
-var outfile = 'summary.json';
+var dir = path.join(__dirname, './simulate_' + size);
+var outfile = path.join(dir, 'summary.json');
 
+var p = 0.7;
 var summary = {'p': p, 'size': size};
-var algorithms = {'km': speedPercentile,
-                  'R4': speedPercentile,
-                  'R5': speedPercentile,
+var algorithms = {'R4': percentile,
+                  'R5': percentile,
                   'scipy': scipyPercentile};
+
 
 var promises = fs.readdirSync(dir)
 .filter(function (file) {
   return path.extname(file) === '';
 })
-.map(function (file) {
-  return new Promise(function (resolve, reject) {
-    summary[file] = {'speed': {}, 'time': {}};
+.map(function (distName) {
+  return new Promise(function(resolve, reject) {
+    summary[distName] = {'speed': {}, 'time': {}};
 
-    fs.readFile(path.join(dir, file), function (err, data) {
+    // load sample histogram
+    fs.readFile(path.join(dir, distName), function (err, data) {
       if (err) reject(err);
-      summarise(file, data);
+
+      // compute percentile speed
+      summarise(distName, data);
       resolve();
     });
   });
@@ -36,25 +39,26 @@ var promises = fs.readdirSync(dir)
 
 Promise.all(promises)
 .then(function() {
-  fs.writeFile(path.join(dir, outfile), JSON.stringify(summary, null, '\t'));
+  // write out speeds
+  fs.writeFileSync(outfile, JSON.stringify(summary, null, '\t'));
   console.log('Time Elasped: %d ms', process.hrtime(tic)[1]/1e6);
 }).catch(function (err) {
   console.err(err);
 });
 
 
-function summarise(dist, data) {
+function summarise(distName, data) {
   var hist = JSON.parse(data);
 
   // max speed
-  summary[dist].speed['max'] = +Object.keys(hist).pop();
-
+  summary[distName].speed['max'] = +Object.keys(hist).pop();
 
   // percentile speed and computation time
   Object.keys(algorithms).forEach(function (flag) {
+    // excess param is discarded anyways
     var r = timeprocess(algorithms[flag], [hist, p, flag]);
-    summary[dist].speed[flag] = r.result;
-    summary[dist].time[flag] = r.time;
+    summary[distName].speed[flag] = r.result;
+    summary[distName].time[flag] = r.time;
   });
 }
 

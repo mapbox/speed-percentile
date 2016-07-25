@@ -1,20 +1,16 @@
 'use strict';
-var speedPercentile = require('../percentile.js');
-var scipyPercentile = require('./scipy_quantile.js');
+var percentile = require('../percentile');
+var scipyPercentile = require('./scipy_quantile');
 var fs = require('fs');
 var path = require('path');
 
 var size = +process.argv[2];
 var ps = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95];
 
-var dir = './simulate_' + size;
-var outfile = 'profile.json';
+var dir = path.join(__dirname, 'simulate_' + size);
+var outfile = path.join(__dirname, 'simulate_' + size, 'cdfs.json');
 
 var summary = {'ps': ps};
-var algorithms = {'km': speedPercentile,
-                  'R4': speedPercentile,
-                  'R5': speedPercentile,
-                  'scipy': scipyPercentile};
 
 var promises = fs.readdirSync(dir)
 .filter(function (file) {
@@ -34,7 +30,7 @@ var promises = fs.readdirSync(dir)
 
 Promise.all(promises)
 .then(function() {
-  fs.writeFile(path.join(dir, outfile), JSON.stringify(summary, null, '\t'));
+  fs.writeFileSync(outfile, JSON.stringify(summary, null, '\t'));
   console.log('Time Elasped: %d ms', process.hrtime(tic)[1]/1e6);
 }).catch(function (err) {
   console.err(err);
@@ -45,7 +41,7 @@ function summarise(dist, data) {
   var hist = JSON.parse(data);
 
   // percentile speed and computation time
-  Object.keys(algorithms).forEach(function (flag) {
-    summary[dist].speed[flag] = algorithms[flag](hist, ps, flag);
-  });
+  summary[dist].speed['R4'] = percentile(hist, ps, 'R4');
+  summary[dist].speed['R5'] = percentile(hist, ps, 'R5');
+  summary[dist].speed['scipy'] = scipyPercentile(hist, ps);
 }
