@@ -1,6 +1,6 @@
 var test = require('tap').test;
 var CDF = require('../cdf');
-var percentile = require('../index');
+var percentile = require('../percentile');
 
 /**
  * See wiki for where these numbers come from.

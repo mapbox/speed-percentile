@@ -1,5 +1,5 @@
 'use strict';
-var percentile = require('../index');
+var percentile = require('../percentile');
 var scipyPercentile = require('./scipy_quantile');
 var fs = require('fs');
 var path = require('path');
