@@ -6,7 +6,7 @@ A JavaScript utility to compute percentile speed from speed histogram.
 Example:
 
 ```
-var sp = require('speed-percentile');
+var percentile = require('speed-percentile');
 
 var histogram = {20: 1, 21: 1, 22: 2, 23: 3, 24: 4, 25: 5};
 
@@ -44,8 +44,8 @@ __Inputs:__
 | `P3` | string | algorithm flag (optional): `'R4'`, `'R5'` (default) |
 
 Algorithms:
-* `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language)'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
-* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language)'s [sample quantile Type 5](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
+* `R4` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 4](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with linearly interpolated lower tail
+* `R5` – [R](https://en.wikipedia.org/wiki/R_(programming_language))'s [sample quantile Type 5](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html), but with both tails linearly interpolated
 
 
 __Outputs:__
