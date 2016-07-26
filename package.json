@@ -1,6 +1,6 @@
 {
   "name": "speed-percentile",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Utility to compute speed percentile from sparse histogram hash.",
   "license": "ISC",
   "main": "percentile.js",
@@ -10,22 +10,28 @@
   },
   "scripts": {
     "test": "npm run lint; tap -R spec test/test.*.js;",
-    "lint": "eslint ./*.js ./test/*.js"
-  },
-  "dependencies": {
-
+    "lint": "eslint *.js test/*.js",
+    "fix": "eslint --fix *.js test/*.js",
+    "coverage": "tap test/test.*.js --cov --coverage-report=lcov"
   },
   "devDependencies": {
     "eslint": "^2.11.1",
+    "eslint-config-mourner": "^2.0.1",
     "tap": "^5.7.2"
   },
   "eslintConfig": {
-    "env": {
-      "node": true,
-      "es6": false
-    },
+    "extends": "mourner",
     "rules": {
-      "semi": 2
+      "strict": 0,
+      "indent": [
+        2,
+        2
+      ],
+      "camelcase": 0,
+      "space-before-function-paren": [
+        2,
+        "never"
+      ]
     }
   }
 }

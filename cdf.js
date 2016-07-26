@@ -30,7 +30,7 @@ module.exports = function CDF(histogram, offset) {
  * @return {Object}             an object with cumulative sum and total count
  *                              as properties
  */
-module.exports.cumsum = function (histogram, offset) {
+module.exports.cumsum = function(histogram, offset) {
   if (offset === undefined) offset = 0;
 
   var n = 0;

@@ -1,5 +1,5 @@
 'use strict';
-var CDF = require('./cdf');
+var getCDF = require('./cdf');
 
 /**
  * find speed(s) corresponding to desired percentile(s)
@@ -30,25 +30,25 @@ module.exports = function(histogram, ps, type) {
   // compute cumulative distribution function
   var cdf;
   switch (type) {
-    case 'R4':
+  case 'R4':
       // R4 with linear estimation of lower extreme
-      cdf = CDF(histogram);
-      break;
+    cdf = getCDF(histogram);
+    break;
 
-    default:
+  default:
       //R5 with linear estimation of both upper and lower extremes
-      var cdf = CDF(histogram, -0.5);
+    cdf = getCDF(histogram, -0.5);
 
       // linearly project a point beyond 1 for interpolating upper tail
-      var speeds = Object.keys(cdf);
-      var i = speeds.length-1;
-      var j = speeds.length-2;
-      var newspeed = 2 * speeds[i] - speeds[j];
-      cdf[newspeed] = 2 * cdf[speeds[i]] - cdf[speeds[j]];
+    speeds = Object.keys(cdf);
+    i = speeds.length - 1;
+    var j = speeds.length - 2;
+    var newspeed = 2 * speeds[i] - speeds[j];
+    cdf[newspeed] = 2 * cdf[speeds[i]] - cdf[speeds[j]];
   }
 
   // interpolate speeds
-  var percentileSpeeds = module.exports.piecewiseLinearInterpolation(cdf, ps);
+  percentileSpeeds = module.exports.piecewiseLinearInterpolation(cdf, ps);
   return percentileSpeeds.length > 1 ? percentileSpeeds : percentileSpeeds[0];
 };
 
@@ -65,7 +65,7 @@ module.exports.piecewiseLinearInterpolation = function(cdf, ps) {
   if (!Array.isArray(ps)) ps = [ps];
 
   // sort percentiles in descending order
-  ps.sort(function (a, b) { return b - a; });
+  ps.sort(function(a, b) { return b - a; });
 
 
   var percentileSpeeds = [];

@@ -1,15 +1,15 @@
 var test = require('tap').test;
-var CDF = require('../cdf');
+var getCDF = require('../cdf');
 var percentile = require('../percentile');
 
 /**
  * See wiki for where these numbers come from.
  */
 
-var histogram = {20: 1, 30: 3, 40:2, 50: 5, 60: 3};
+var histogram = {20: 1, 30: 3, 40: 2, 50: 5, 60: 3};
 
 test('R4 cumsum', function(t) {
-  var result = CDF.cumsum(histogram);
+  var result = getCDF.cumsum(histogram);
   t.equal(result.n, 14);
 
   t.equal(result.cumsum[20], 1);
@@ -22,7 +22,7 @@ test('R4 cumsum', function(t) {
 
 
 test('R5 cumsum', function(t) {
-  var result = CDF.cumsum(histogram, -0.5);
+  var result = getCDF.cumsum(histogram, -0.5);
   t.equal(result.n, 14);
 
   t.equal(result.cumsum[20], 0.5);
@@ -35,22 +35,22 @@ test('R5 cumsum', function(t) {
 
 
 test('R4 cdf', function(t) {
-  var cdf = CDF(histogram);
-  t.equal(cdf[20], 1/14);
-  t.equal(cdf[30], 4/14);
-  t.equal(cdf[40], 6/14);
-  t.equal(cdf[50], 11/14);
-  t.equal(cdf[60], 14/14);
+  var cdf = getCDF(histogram);
+  t.equal(cdf[20], 1 / 14);
+  t.equal(cdf[30], 4 / 14);
+  t.equal(cdf[40], 6 / 14);
+  t.equal(cdf[50], 11 / 14);
+  t.equal(cdf[60], 14 / 14);
   t.end();
 });
 
 test('R5 cdf', function(t) {
-  var cdf = CDF(histogram, -0.5);
-  t.equal(cdf[20], 0.5/14);
-  t.equal(cdf[30], 2.5/14);
-  t.equal(cdf[40], 5/14);
-  t.equal(cdf[50], 8.5/14);
-  t.equal(cdf[60], 12.5/14);
+  var cdf = getCDF(histogram, -0.5);
+  t.equal(cdf[20], 0.5 / 14);
+  t.equal(cdf[30], 2.5 / 14);
+  t.equal(cdf[40], 5 / 14);
+  t.equal(cdf[50], 8.5 / 14);
+  t.equal(cdf[60], 12.5 / 14);
   t.end();
 });
 
