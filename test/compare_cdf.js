@@ -12,15 +12,17 @@ var outfile = path.join(__dirname, 'simulate_' + size, 'cdfs.json');
 
 var summary = {'ps': ps};
 
+var tic = process.hrtime();
+
 var promises = fs.readdirSync(dir)
-.filter(function (file) {
+.filter(function(file) {
   return path.extname(file) === '';
 })
-.map(function (file) {
-  return new Promise(function (resolve, reject) {
+.map(function(file) {
+  return new Promise(function(resolve, reject) {
     summary[file] = {'speed': {}};
 
-    fs.readFile(path.join(dir, file), function (err, data) {
+    fs.readFile(path.join(dir, file), function(err, data) {
       if (err) reject(err);
       summarise(file, data);
       resolve();
@@ -31,8 +33,8 @@ var promises = fs.readdirSync(dir)
 Promise.all(promises)
 .then(function() {
   fs.writeFileSync(outfile, JSON.stringify(summary, null, '\t'));
-  console.log('Time Elasped: %d ms', process.hrtime(tic)[1]/1e6);
-}).catch(function (err) {
+  console.log('Time Elasped: %d ms', process.hrtime(tic)[1] / 1e6);
+}).catch(function(err) {
   console.err(err);
 });
 

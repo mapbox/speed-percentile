@@ -1,11 +1,11 @@
 'use strict';
 var path = require('path');
+var spawn = require('child_process').spawnSync;
 
 module.exports = function(hist, ps) {
 
   // execute python script
   var script = path.join(__dirname, 'scipy_quantile.py');
-  var spawn = require('child_process').spawnSync;
   var pythonProcess = spawn('python', [script, '-u', JSON.stringify(hist), ps]);
 
   // error in python script

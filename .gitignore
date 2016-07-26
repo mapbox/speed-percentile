@@ -1,5 +1,6 @@
 .DS_Store
 .ipynb_checkpoints
-
+.nyc_output
+coverage
 node_modules
 npm-debug.log
