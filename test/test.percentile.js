@@ -55,8 +55,28 @@ test('R5 cdf', function(t) {
 });
 
 
+test('searchFromHigh vs. searchFromLow', function(t) {
+  var cdf = getCDF(histogram, -0.5);
+
+  var ps = [0.95];
+  t.deepEqual(percentile.searchFromHigh(cdf, ps), percentile.searchFromLow(cdf, ps));
+
+  ps = [0.05];
+  t.deepEqual(percentile.searchFromHigh(cdf, ps), percentile.searchFromLow(cdf, ps));
+
+  ps = [0.4, 0.3, 0.5];
+  var hiSpeeds = percentile.searchFromHigh(cdf, ps);
+  var loSpeeds = percentile.searchFromLow(cdf, ps)
+                           .sort(function(a, b) { return b - a; });
+
+  t.deepEqual(hiSpeeds, loSpeeds);
+
+  t.end();
+});
+
+
 var ps = [0.5, 0.7];  // test Array format
-var p = 0.95;          // test Number format
+var p = 0.95;         // test Number format
 
 test('R4 percentile', function(t) {
   // speeds always in descending order
@@ -66,7 +86,6 @@ test('R4 percentile', function(t) {
   t.equal(speeds[1].toFixed(4), (40 + 10 * 1 / 5).toFixed(4));
 
   var speed = percentile(histogram, p, 'R4');
-  t.type(speed, 'number');
   t.equal(speed.toFixed(4), (50 + 10 * 2.3 / 3).toFixed(4));
 
   t.end();
