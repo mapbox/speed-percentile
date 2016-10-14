@@ -64,7 +64,7 @@ test('searchFromHigh vs. searchFromLow', function(t) {
   ps = [0.05];
   t.deepEqual(percentile.searchFromHigh(cdf, ps), percentile.searchFromLow(cdf, ps));
 
-  ps = [0.4, 0.3, 0.5];
+  ps = [1, 0.4, 0.3, 0.5, 0];
   var hiSpeeds = percentile.searchFromHigh(cdf, ps);
   var loSpeeds = percentile.searchFromLow(cdf, ps)
                            .sort(function(a, b) { return b - a; });
