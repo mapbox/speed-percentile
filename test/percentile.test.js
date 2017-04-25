@@ -43,7 +43,7 @@ test('R5 cdf and icdf', function(t) {
 
 test('searchFromHigh vs. searchFromLow', function(t) {
   var pi = new PercentileInterpolator(histogram);
-
+  t.equal(pi.n, 14);
 
   var ps = [0.95];
   t.deepEqual(pi._searchFromHigh('icdf', ps), pi._searchFromLow('icdf', ps));
