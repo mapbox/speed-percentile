@@ -109,7 +109,6 @@ test('R5 percentile', function(t) {
 
 test('R5 percentile # single speed', function(t) {
   var histogram = {10: 100};
-  var p = 0.7;
 
   var pi = new PercentileInterpolator(histogram);
   t.equal(pi.n, 100);
