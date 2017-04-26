@@ -2,6 +2,7 @@ var test = require('tap').test;
 var getCDF = require('../lib/cdf.js');
 var PercentileInterpolator = require('../lib/percentile.js');
 
+
 var histogram = {20: 1, 30: 3, 40: 2, 50: 5, 60: 3};
 
 test('R5 cumsum', function(t) {
@@ -101,6 +102,18 @@ test('R5 percentile', function(t) {
 
   p = pi.getPercentile(speed);
   t.equal(p.toFixed(2), (0.17857142857142858 / 10 * 1).toFixed(2));
+
+  t.end();
+});
+
+
+test('R5 percentile # single speed', function(t) {
+  var histogram = {10: 100};
+  var p = 0.7;
+
+  var pi = new PercentileInterpolator(histogram);
+  t.equal(pi.n, 100);
+  t.equal(pi.getSpeed(0.3), 10);
 
   t.end();
 });
