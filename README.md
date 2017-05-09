@@ -3,21 +3,11 @@
 
 A JavaScript utility to compute percentile speed from speed histogram.
 
-Example:
-
-```
-var percentile = require('speed-percentile');
-
-var histogram = {20: 1, 21: 1, 22: 2, 23: 3, 24: 4, 25: 5};
-
-var speed = percentile(histogram, 0.85, 'R4');
-//=> 24.52
-```
 
 ## Install
 
 ```
-npm install speed-percentile
+npm install @mapbox/speed-percentile
 ```
 
 ## Test
@@ -27,9 +17,9 @@ npm install speed-percentile
 npm test
 ```
 
-## Syntax
+## Use
 
-### percentile
+### v1.x
 
 **`var o1 = percentile(P1, P2, P3)`**
 
@@ -53,3 +43,23 @@ __Outputs:__
 | output | data type | description |
 |:--|:--|:--|
 | `o1` | number or array | corresponding speed(s) ***sorted in descending order*** |
+
+
+### v2.x
+
+v2.x only has R5 algorithm.
+
+```
+var PercentileInterpolator = require('@mapbox/speed-percentile');
+
+var hist = {10: 2, 30: 3, 40: 4};
+var pi = new PercentileInterpolator(hist);  
+
+// find speed from percentile
+var speed = pi.getSpeed(0.7);
+var speeds = pi.getSpeed([0.1, 0.7]);  // irrespective of input order, output is always in descending order
+
+// find percentile from speed
+var p = pi.getPercentile(30);
+var ps = pi.getPercentile([20, 30]);   // irrespective of input order, output is always in descending order
+```

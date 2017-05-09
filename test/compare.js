@@ -1,6 +1,10 @@
+/**
+ * node test/compare.js 20
+ */
 'use strict';
-var percentile = require('../percentile');
-var scipyPercentile = require('./scipy_quantile');
+
+var PercentileInterpolator = require('../lib/percentile.js');
+var scipyPercentile = require('./scipy_quantile.js');
 var fs = require('fs');
 var path = require('path');
 
@@ -11,9 +15,6 @@ var outfile = path.join(dir, 'summary.json');
 
 var p = 0.7;
 var summary = {'p': p, 'size': size};
-var algorithms = {'R4': percentile,
-                  'R5': percentile,
-                  'scipy': scipyPercentile};
 
 var tic = process.hrtime();
 
@@ -52,18 +53,11 @@ function summarise(distName, data) {
   // max speed
   summary[distName].speed['max'] = +Object.keys(hist).pop();
 
-  // percentile speed and computation time
-  Object.keys(algorithms).forEach(function(flag) {
-    // excess param is discarded anyways
-    var r = timeprocess(algorithms[flag], [hist, p, flag]);
-    summary[distName].speed[flag] = r.result;
-    summary[distName].time[flag] = r.time;
-  });
+  // R5
+  var pi = new PercentileInterpolator(hist);
+  summary[distName].speed['R5'] = +pi.getSpeed(p).toFixed(2);
+
+  // scipy
+  summary[distName].speed['scipy'] = scipyPercentile(hist, p);
 }
 
-function timeprocess(fn, args) {
-  var hrstart = process.hrtime();
-  var result = fn.apply(null, args);
-  var hrend = process.hrtime(hrstart);
-  return {'result': +result, 'time': hrend[1] / 1e6};  //time in ms
-}
