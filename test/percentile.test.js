@@ -74,6 +74,17 @@ test('searchFromHigh vs. searchFromLow', function(t) {
   t.end();
 });
 
+test('search for percentiles on skewed histogram', function(t) {
+  var skewHistogram = {88: 6, 89: 5, 90: 2, 91: 4, 94: 6, 95: 1, 97: 5, 99: 10,
+                       100: 1, 101: 8, 102: 3, 104: 17, 105: 29, 106: 5, 107: 38};
+  var pi = new PercentileInterpolator(skewHistogram);
+  var percentiles = pi._searchFromHigh('cdf', [109.15, 99.15]);
+  t.equal(percentiles[0], 1.0);
+  console.log(percentiles[1].toFixed(2));
+  t.equal(percentiles[1].toFixed(2), '0.25');
+  t.deepEqual(percentiles, pi._searchFromLow('cdf', [109.15, 99.15]).sort(function(a, b) { return b - a; }));
+  t.end();
+});
 
 test('R5 percentile', function(t) {
   var pi = new PercentileInterpolator(histogram);
