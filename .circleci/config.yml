@@ -18,4 +18,3 @@ workflows:
   test:
     jobs:
       - test
-      
