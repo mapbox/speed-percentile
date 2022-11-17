@@ -12,3 +12,8 @@ jobs:
       - run:
           command: npm test
           name: Run tests
+
+workflows:
+  test:
+    jobs:
+      - test
