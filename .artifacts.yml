@@ -1,4 +1,4 @@
 version: v1
 
 defaults:
-- bundle
+  - bundle
