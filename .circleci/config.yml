@@ -11,7 +11,7 @@ jobs:
       # - node/install-packages:
       #     pkg-manager: npm
       - run:
-          command: npm test && npm test
+          command: npm install && npm test
           name: Run tests
 
 workflows:
