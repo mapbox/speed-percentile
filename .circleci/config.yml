@@ -7,9 +7,9 @@ jobs:
   test: # this can be any name you choose
     executor: node/default # use the default executor defined within the orb
     steps:
-      # - checkout
-      # - node/install-packages:
-      #     pkg-manager: npm
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
       - run:
           command: npm install && npm test
           name: Run tests
