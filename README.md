@@ -63,3 +63,4 @@ var speeds = pi.getSpeed([0.1, 0.7]);  // irrespective of input order, output is
 var p = pi.getPercentile(30);
 var ps = pi.getPercentile([20, 30]);   // irrespective of input order, output is always in descending order
 ```
+test
