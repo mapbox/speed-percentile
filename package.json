@@ -1,6 +1,6 @@
 {
   "name": "@mapbox/speed-percentile",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Utility to compute speed percentile from sparse histogram hash.",
   "license": "ISC",
   "main": "lib/percentile.js",
@@ -33,5 +33,8 @@
         "never"
       ]
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
